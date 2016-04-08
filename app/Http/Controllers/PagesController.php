@@ -21,10 +21,19 @@ class PagesController extends Controller
         {
             return back()->withErrors($validator);
         }
-
+        if( !isset($request->url) || empty($request->url) )
+        {
+            return view('controllers.pages.homepage');
+        }
         // get username and repository from the url
     	$url = $request->url;
         preg_match("/[gGiItThHuUbB]*\.[a-zA-Z]*\/([^\/]*)\/([^\/]*)/", $url, $user_repo);
+        
+        if(count($user_repo) < 3)
+        {
+            return back()->withErrors(array('message' => 'Invalid github Repository URL'));
+        }
+
         $user = $user_repo[1];
         $repo = $user_repo[2];
 
@@ -57,7 +66,6 @@ class PagesController extends Controller
             $page++;
             $issues_page = GitHub::api('issue')->all($user, $repo, ['state'=>'open', 'sort'=>'created', 'direction'=>'desc', 'page'=>$page, 'per_page'=>100]);
         }
-
         // stats we require
         $result = array(
                     'total' => $totalIssues,
@@ -65,6 +73,7 @@ class PagesController extends Controller
                     '24hoursto7days' => $moreThan24LessThan7,
                     'morethan7days' => $moreThan7
                 );
+
         return view('controllers.pages.homepage', compact('url', 'result'));
     }
 }
