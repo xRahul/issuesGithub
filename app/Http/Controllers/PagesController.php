@@ -56,7 +56,6 @@ class PagesController extends Controller
 
         // get issues in 100 per page.
         $issues_page = GitHub::api('issue')->all($user, $repo, ['state'=>'open', 'sort'=>'created', 'direction'=>'desc', 'page'=>$page, 'per_page'=>100]);
-        dd($issues_page);
         
         while( !empty($issues_page) )
         {
