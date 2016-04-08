@@ -16,22 +16,32 @@ class PagesController extends Controller
     	$validator = Validator::make($request->all(), [
             'url' => 'url'
         ]);
-        // Validation fails, then return to previous page with errors
+        // if url Validation fails, then return to previous page with errors
         if ($validator->fails()) 
         {
             return back()->withErrors($validator);
         }
+
+        // if url parameter isn't set or is empty
         if( !isset($request->url) || empty($request->url) )
         {
             return view('controllers.pages.homepage');
         }
+
         // get username and repository from the url
     	$url = $request->url;
         preg_match("/[gGiItThHuUbB]*\.[a-zA-Z]*\/([^\/]*)\/([^\/]*)/", $url, $user_repo);
         
+        // if the preg_match did not return both the username and repository
         if(count($user_repo) < 3)
         {
             return back()->withErrors(array('message' => 'Invalid github Repository URL'));
+        }
+
+        // check if the github url is valid
+        if(get_headers($url)[0] !== "HTTP/1.1 200 OK")
+        {
+            return back()->withErrors(array('message' => "Repository not found ($url)"));
         }
 
         $user = $user_repo[1];
