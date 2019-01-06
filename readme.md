@@ -1,5 +1,12 @@
 ### Get number of open issues in a github repository.
 
+[![Build Status](https://travis-ci.org/xRahul/issuesGithub.svg?branch=master)](https://travis-ci.org/xRahul/issuesGithub)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fa7ea8b966d246ce99d6209510721b5c)](https://www.codacy.com/app/xRahul/issuesGithub?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xRahul/issuesGithub&amp;utm_campaign=Badge_Grade)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5734dc642cf3cfaddf96/maintainability)](https://codeclimate.com/github/xRahul/issuesGithub/maintainability)
+[![codebeat badge](https://codebeat.co/badges/65cc5424-2ba9-4527-ba29-45a43a244510)](https://codebeat.co/projects/github-com-xrahul-issuesgithub-master)
+[![CodeFactor](https://www.codefactor.io/repository/github/xrahul/issuesgithub/badge)](https://www.codefactor.io/repository/github/xrahul/issuesgithub)
+[![libraries.io](https://img.shields.io/librariesio/github/xRahul/issuesGithub.svg)](https://libraries.io/github/xRahul/issuesGithub)
+
 A [Laravel](http://laravel.com) app to get number of open issues in a github repository using github v3 api.
 
 App is currently live on [http://issuesgithub.herokuapp.com/](http://issuesgithub.herokuapp.com/)
