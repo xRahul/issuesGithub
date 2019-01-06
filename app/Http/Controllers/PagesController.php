@@ -1,5 +1,16 @@
 <?php
-
+/**
+ * Pages
+ *
+ * Main pages controller.
+ *
+ * @package issuesGithub
+ * @version 1.0.0
+ * @author  ****
+ * @license https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link    ****
+ * @since   1.0.0
+ */
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
@@ -7,8 +18,17 @@ use GitHub;
 use Illuminate\Http\Request;
 use Validator;
 
+/**
+ * Pages Controller for Homepage
+ */
 class PagesController extends Controller
 {
+    /**
+     * View Homepage
+     *
+     * @param  Request $request Input request
+     * @return view           homepage
+     */
     public function homepage(Request $request)
     {
         // Validate the url
@@ -29,16 +49,24 @@ class PagesController extends Controller
 
         // get username and repository from the url
         $url = $request->url;
-        preg_match("/[gGiItThHuUbB]*\.[a-zA-Z]*\/([^\/]*)\/([^\/]*)/", $url, $user_repo);
+        preg_match(
+            "/[gGiItThHuUbB]*\.[a-zA-Z]*\/([^\/]*)\/([^\/]*)/",
+            $url,
+            $user_repo
+        );
 
         // if the preg_match did not return both the username and repository
         if (count($user_repo) < 3) {
-            return back()->withErrors(array('message' => 'Invalid github Repository URL'));
+            return back()->withErrors(
+                array('message' => 'Invalid github Repository URL')
+            );
         }
 
         // check if the github url is valid
         if (get_headers($url)[0] !== "HTTP/1.1 200 OK") {
-            return back()->withErrors(array('message' => "Repository not found ($url)"));
+            return back()->withErrors(
+                array('message' => "Repository not found ($url)")
+            );
         }
 
         $user = $user_repo[1];
@@ -52,13 +80,27 @@ class PagesController extends Controller
         $totalIssues = $lessThan24 = $moreThan24LessThan7 = $moreThan7 = 0;
 
         // get issues in 100 per page.
-        $issues_page = GitHub::api('issue')->all($user, $repo, ['state' => 'open', 'sort' => 'created', 'direction' => 'desc', 'page' => $page, 'per_page' => 100]);
+        $issues_page = GitHub::api('issue')->all(
+            $user,
+            $repo,
+            [
+                'state'     => 'open',
+                'sort'      => 'created',
+                'direction' => 'desc',
+                'page'      => $page,
+                'per_page'  => 100,
+            ]
+        );
 
         while (!empty($issues_page)) {
             // count all the stats required
             foreach ($issues_page as $issue) {
                 // convert date to Carbon instance for easier manipulation
-                $cDate = Carbon::createFromFormat('Y-m-d\TH:i:sZ', $issue['created_at'], 'UTC');
+                $cDate = Carbon::createFromFormat(
+                    'Y-m-d\TH:i:sZ',
+                    $issue['created_at'],
+                    'UTC'
+                );
                 $totalIssues++;
                 if ($cDate->gte($now24hours)) {
                     $lessThan24++;
@@ -71,7 +113,17 @@ class PagesController extends Controller
             }
             // get the next page
             $page++;
-            $issues_page = GitHub::api('issue')->all($user, $repo, ['state' => 'open', 'sort' => 'created', 'direction' => 'desc', 'page' => $page, 'per_page' => 100]);
+            $issues_page = GitHub::api('issue')->all(
+                $user,
+                $repo,
+                [
+                    'state'     => 'open',
+                    'sort'      => 'created',
+                    'direction' => 'desc',
+                    'page'      => $page,
+                    'per_page'  => 100,
+                ]
+            );
         }
         // stats we require
         $result = array(
