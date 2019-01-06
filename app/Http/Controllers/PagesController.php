@@ -1,16 +1,5 @@
 <?php
-/**
- * Pages
- *
- * Main pages controller.
- *
- * @package issuesGithub
- * @version 1.0.0
- * @author  ****
- * @license https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
- * @link    ****
- * @since   1.0.0
- */
+
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
@@ -18,17 +7,9 @@ use GitHub;
 use Illuminate\Http\Request;
 use Validator;
 
-/**
- * Pages Controller for Homepage
- */
 class PagesController extends Controller
 {
-    /**
-     * View Homepage
-     *
-     * @param  Request $request Input request
-     * @return view           homepage
-     */
+
     public function homepage(Request $request)
     {
         // Validate the url

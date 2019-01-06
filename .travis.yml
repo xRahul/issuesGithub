@@ -4,7 +4,11 @@ os:
 language: php
 
 php:
+  - '5.5.9'
   - '5.6'
+  - '7.0'
+  - '7.1'
+
 
 before_script:
   - composer self-update
@@ -20,4 +24,4 @@ before_script:
 
 script:
   - vendor/bin/phpunit --coverage-text
-  - phpcs --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
+  - phpcs --standard=phpcs-ruleset.xml --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
