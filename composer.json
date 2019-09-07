@@ -8,7 +8,7 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.45",
         "graham-campbell/github": "4.4.2",
-        "laravelcollective/html": "5.7.1"
+        "laravelcollective/html": "5.8.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",
