@@ -11,7 +11,7 @@
         "laravelcollective/html": "5.7.1"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.8",
+        "fzaninotto/faker": "1.9.2",
         "mockery/mockery": "0.9.10",
         "phpunit/phpunit": "~4.8",
         "symfony/css-selector": "2.8.*|3.0.*",
