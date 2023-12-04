@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.45",
-        "graham-campbell/github": "4.4.2",
+        "graham-campbell/github": "12.4.0",
         "laravelcollective/html": "5.7.1"
     },
     "require-dev": {
